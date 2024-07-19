@@ -1,10 +1,3 @@
-//
-//  Work_10App.swift
-//  Work 10
-//
-//  Created by Anthony Howell on 7/19/24.
-//
-
 import SwiftUI
 import SwiftData
 
