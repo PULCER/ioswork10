@@ -106,25 +106,31 @@ struct AddItemView: View {
             
             Spacer()
             
-            HStack {
+            HStack(spacing: 20) {
                 Button("Cancel") {
                     navigationViewModel.goToRoot()
                 }
                 .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.customPink)
+                .foregroundColor(.white)
+                .cornerRadius(10)
                 
                 Button("Save") {
                     saveItem()
                     navigationViewModel.goToRoot()
                 }
                 .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.customGreen)
+                .foregroundColor(.white)
+                .cornerRadius(10)
             }
             .padding()
-            .background(Color.gray.opacity(0.1))
         }
         .frame(minWidth: 300, idealWidth: 400, maxWidth: .infinity, minHeight: 300, idealHeight: 400, maxHeight: .infinity)
         .navigationTitle(editingItem == nil ? "Add Item" : "Edit Item")
     }
-    
     private func saveItem() {
         let links = linkString.split(separator: ",").compactMap { URL(string: String($0).trimmingCharacters(in: .whitespaces)) }
         
