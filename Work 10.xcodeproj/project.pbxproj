@@ -12,6 +12,7 @@
 		4342ADEF2C4AD67E005AAAD7 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342ADEE2C4AD67E005AAAD7 /* Item.swift */; };
 		4342ADF12C4AD67F005AAAD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4342ADF02C4AD67F005AAAD7 /* Assets.xcassets */; };
 		4342ADF52C4AD67F005AAAD7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4342ADF42C4AD67F005AAAD7 /* Preview Assets.xcassets */; };
+		43F6BB472C4B280400BFEFCD /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6BB462C4B280400BFEFCD /* NavigationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		4342ADF02C4AD67F005AAAD7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4342ADF22C4AD67F005AAAD7 /* Work_10.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Work_10.entitlements; sourceTree = "<group>"; };
 		4342ADF42C4AD67F005AAAD7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		43F6BB462C4B280400BFEFCD /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				4342ADEA2C4AD67E005AAAD7 /* Work_10App.swift */,
 				4342ADEC2C4AD67E005AAAD7 /* ContentView.swift */,
+				43F6BB462C4B280400BFEFCD /* NavigationViewModel.swift */,
 				4342ADEE2C4AD67E005AAAD7 /* Item.swift */,
 				4342ADF02C4AD67F005AAAD7 /* Assets.xcassets */,
 				4342ADF22C4AD67F005AAAD7 /* Work_10.entitlements */,
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43F6BB472C4B280400BFEFCD /* NavigationViewModel.swift in Sources */,
 				4342ADED2C4AD67E005AAAD7 /* ContentView.swift in Sources */,
 				4342ADEF2C4AD67E005AAAD7 /* Item.swift in Sources */,
 				4342ADEB2C4AD67E005AAAD7 /* Work_10App.swift in Sources */,
