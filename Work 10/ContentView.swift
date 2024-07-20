@@ -80,34 +80,56 @@ struct ItemPreview: View {
     let onMoveDown: () -> Void
     
     var body: some View {
-        HStack {
-            Button(action: onMoveUp) {
-                Image(systemName: "arrow.up")
-            }
-            .padding(.trailing, 5)
-            
-            VStack(alignment: .leading) {
-                Text(item.title ?? "Untitled")
-                    .font(.headline)
-                Text(item.itemDescription ?? "No description")
-                    .font(.subheadline)
-                    .lineLimit(1)
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Button(action: onMoveUp) {
+                    Image(systemName: "arrow.up")
+                }
+                .padding(.trailing, 5)
                 
-                HStack {
-                    ForEach(Array(zip(item.links ?? [], 1...3)), id: \.0) { link, index in
-                        Link("\(index)", destination: link)
+                VStack(alignment: .leading) {
+                    Text(item.title ?? "Untitled")
+                        .font(.headline)
+                    Text(item.itemDescription ?? "No description")
+                        .font(.subheadline)
+                        .lineLimit(1)
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Button(action: onMoveDown) {
+                    Image(systemName: "arrow.down")
+                }
+                .padding(.leading, 5)
+            }
+            
+            if let links = item.links, !links.isEmpty {
+                HStack(spacing: 10) {
+                    ForEach(Array(zip(links.prefix(3), 1...3)), id: \.0) { link, index in
+                        Link(destination: link) {
+                            Text("Link \(index)")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(linkColor(for: index))
+                                .foregroundColor(.black)
+                                .cornerRadius(10)
+                        }
                     }
                 }
+                .frame(maxWidth: .infinity)
             }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(10)
-            
-            Button(action: onMoveDown) {
-                Image(systemName: "arrow.down")
-            }
-            .padding(.leading, 5)
+        }
+        .padding()
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(10)
+    }
+    
+    private func linkColor(for index: Int) -> Color {
+        switch index {
+        case 1: return .customPink
+        case 2: return .customTeal
+        case 3: return .customYellow
+        default: return .customGreen
         }
     }
 }
