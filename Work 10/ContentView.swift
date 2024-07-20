@@ -40,10 +40,10 @@ struct ContentView: View {
             }) {
                 Text("ADD")
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.customBlue)
                     .cornerRadius(10)
             }
             .padding()

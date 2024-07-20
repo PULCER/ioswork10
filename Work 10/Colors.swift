@@ -5,6 +5,8 @@ extension Color {
     static let customTeal = Color(hex: 0xA0E7E5)
     static let customGreen = Color(hex: 0xB4F8C8)
     static let customYellow = Color(hex: 0xFBE7C6)
+    static let customBlue = Color(hex: 0x87CEEB)  // Sky Blue
+    static let customDarkBrown = Color(hex: 0x3D2B1F)  // Dark Brown
 }
 
 extension Color {
