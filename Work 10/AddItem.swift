@@ -18,7 +18,7 @@ struct AddItemView: View {
         self.navigationViewModel = navigationViewModel
         _title = State(initialValue: editingItem?.title ?? "")
         _itemDescription = State(initialValue: editingItem?.itemDescription ?? "")
-        _linkString = State(initialValue: editingItem?.links.map { $0.absoluteString }.joined(separator: ", ") ?? "")
+        _linkString = State(initialValue: editingItem?.links?.compactMap { $0.absoluteString }.joined(separator: ", ") ?? "")
     }
     
     var body: some View {

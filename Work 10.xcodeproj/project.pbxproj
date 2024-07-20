@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		433D52762C4B2A3A00511DF7 /* AddItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433D52752C4B2A3A00511DF7 /* AddItem.swift */; };
+		433D52792C4B3F8800511DF7 /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = 433D52782C4B3F8800511DF7 /* Property List.plist */; };
 		4342ADEB2C4AD67E005AAAD7 /* Work_10App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342ADEA2C4AD67E005AAAD7 /* Work_10App.swift */; };
 		4342ADED2C4AD67E005AAAD7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342ADEC2C4AD67E005AAAD7 /* ContentView.swift */; };
 		4342ADEF2C4AD67E005AAAD7 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342ADEE2C4AD67E005AAAD7 /* Item.swift */; };
@@ -19,6 +20,8 @@
 
 /* Begin PBXFileReference section */
 		433D52752C4B2A3A00511DF7 /* AddItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItem.swift; sourceTree = "<group>"; };
+		433D52772C4B3F6500511DF7 /* Work-10-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Work-10-Info.plist"; sourceTree = SOURCE_ROOT; };
+		433D52782C4B3F8800511DF7 /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		4342ADE72C4AD67E005AAAD7 /* Work 10.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Work 10.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4342ADEA2C4AD67E005AAAD7 /* Work_10App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work_10App.swift; sourceTree = "<group>"; };
 		4342ADEC2C4AD67E005AAAD7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +47,7 @@
 		4342ADDE2C4AD67E005AAAD7 = {
 			isa = PBXGroup;
 			children = (
+				433D52782C4B3F8800511DF7 /* Property List.plist */,
 				4342ADE92C4AD67E005AAAD7 /* Work 10 */,
 				4342ADE82C4AD67E005AAAD7 /* Products */,
 			);
@@ -60,6 +64,7 @@
 		4342ADE92C4AD67E005AAAD7 /* Work 10 */ = {
 			isa = PBXGroup;
 			children = (
+				433D52772C4B3F6500511DF7 /* Work-10-Info.plist */,
 				4342ADEA2C4AD67E005AAAD7 /* Work_10App.swift */,
 				4342ADEC2C4AD67E005AAAD7 /* ContentView.swift */,
 				433D52752C4B2A3A00511DF7 /* AddItem.swift */,
@@ -139,6 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				433D52792C4B3F8800511DF7 /* Property List.plist in Resources */,
 				4342ADF52C4AD67F005AAAD7 /* Preview Assets.xcassets in Resources */,
 				4342ADF12C4AD67F005AAAD7 /* Assets.xcassets in Resources */,
 			);
@@ -290,6 +296,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Work-10-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Work10;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -328,6 +337,9 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Work-10-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Work10;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

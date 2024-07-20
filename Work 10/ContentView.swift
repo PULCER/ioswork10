@@ -87,9 +87,9 @@ struct ItemPreview: View {
             .padding(.trailing, 5)
             
             VStack(alignment: .leading) {
-                Text(item.title)
+                Text(item.title ?? "Untitled")
                     .font(.headline)
-                Text(item.itemDescription)
+                Text(item.itemDescription ?? "No description")
                     .font(.subheadline)
                     .lineLimit(1)
             }
