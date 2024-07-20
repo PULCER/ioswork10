@@ -36,17 +36,18 @@ struct ContentView: View {
             }
             
             Button(action: {
-                navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
-            }) {
-                Text("ADD")
-                    .font(.headline)
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.customBlue)
-                    .cornerRadius(10)
-            }
-            .padding()
+                          navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
+                      }) {
+                          Text("ADD")
+                              .font(.headline)
+                              .foregroundColor(.black)
+                              .frame(maxWidth: .infinity)
+                              .padding()
+                              .background(Color.customBlue)
+                              .cornerRadius(10)
+                      }
+                      .buttonStyle(ClickableButtonStyle())
+                      .padding()
         }
     }
     

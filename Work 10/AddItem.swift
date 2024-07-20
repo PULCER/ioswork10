@@ -64,39 +64,48 @@ struct AddItemView: View {
             
             Spacer()
             
-            HStack(spacing: 20) {
-                if editingItem != nil {
-                    Button("Delete") {
-                        showingDeleteConfirmation = true
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.customTeal)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                }
-                
-                Button("Cancel") {
-                    navigationViewModel.goToRoot()
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.customPink)
-                .foregroundColor(.black)
-                .cornerRadius(10)
-                
-                Button("Save") {
-                    saveItem()
-                    navigationViewModel.goToRoot()
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.customGreen)
-                .foregroundColor(.black)
-                .cornerRadius(10)
-            }
-            .padding()
-        }
+               HStack(spacing: 20) {
+                             if editingItem != nil {
+                                 Button(action: {
+                                     showingDeleteConfirmation = true
+                                 }) {
+                                     Text("Delete")
+                                         .frame(maxWidth: .infinity)
+                                         .padding()
+                                         .background(Color.customTeal)
+                                         .foregroundColor(.black)
+                                         .cornerRadius(10)
+                                 }
+                                 .buttonStyle(ClickableButtonStyle())
+                             }
+                             
+                             Button(action: {
+                                 navigationViewModel.goToRoot()
+                             }) {
+                                 Text("Cancel")
+                                     .frame(maxWidth: .infinity)
+                                     .padding()
+                                     .background(Color.customPink)
+                                     .foregroundColor(.black)
+                                     .cornerRadius(10)
+                             }
+                             .buttonStyle(ClickableButtonStyle())
+                             
+                             Button(action: {
+                                 saveItem()
+                                 navigationViewModel.goToRoot()
+                             }) {
+                                 Text("Save")
+                                     .frame(maxWidth: .infinity)
+                                     .padding()
+                                     .background(Color.customGreen)
+                                     .foregroundColor(.black)
+                                     .cornerRadius(10)
+                             }
+                             .buttonStyle(ClickableButtonStyle())
+                         }
+                         .padding()
+                     }
         .frame(minWidth: 300, idealWidth: 400, maxWidth: .infinity, minHeight: 300, idealHeight: 400, maxHeight: .infinity)
         .navigationTitle(editingItem == nil ? "Add Item" : "Edit Item")
         .alert("Delete Item", isPresented: $showingDeleteConfirmation) {
