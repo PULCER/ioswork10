@@ -3,7 +3,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query(sort: \Item.rank) private var items: [Item]
     @StateObject private var navigationViewModel = NavigationViewModel()
     
     var body: some View {
@@ -22,10 +22,14 @@ struct ContentView: View {
             ScrollView {
                 LazyVStack(spacing: 10) {
                     ForEach(items) { item in
-                        ItemPreview(item: item)
-                            .onTapGesture {
-                                navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: item, navigationViewModel: navigationViewModel)))
-                            }
+                        ItemPreview(item: item, onMoveUp: {
+                            moveItem(item, direction: .up)
+                        }, onMoveDown: {
+                            moveItem(item, direction: .down)
+                        })
+                        .onTapGesture {
+                            navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: item, navigationViewModel: navigationViewModel)))
+                        }
                     }
                 }
                 .padding()
@@ -50,22 +54,59 @@ struct ContentView: View {
             }
         }
     }
+    
+    private func moveItem(_ item: Item, direction: MoveDirection) {
+        guard let index = items.firstIndex(of: item) else { return }
+        
+        switch direction {
+        case .up:
+            guard index > 0 else { return }
+            let newRank = items[index - 1].rank
+            items[index - 1].rank = item.rank
+            item.rank = newRank
+        case .down:
+            guard index < items.count - 1 else { return }
+            let newRank = items[index + 1].rank
+            items[index + 1].rank = item.rank
+            item.rank = newRank
+        }
+        
+        try? modelContext.save()
+    }
+}
+
+enum MoveDirection {
+    case up, down
 }
 
 struct ItemPreview: View {
     let item: Item
+    let onMoveUp: () -> Void
+    let onMoveDown: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(item.title)
-                .font(.headline)
-            Text(item.itemDescription)
-                .font(.subheadline)
-                .lineLimit(1)
+        HStack {
+            Button(action: onMoveUp) {
+                Image(systemName: "arrow.up")
+            }
+            .padding(.trailing, 5)
+            
+            VStack(alignment: .leading) {
+                Text(item.title)
+                    .font(.headline)
+                Text(item.itemDescription)
+                    .font(.subheadline)
+                    .lineLimit(1)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.gray.opacity(0.1))
+            .cornerRadius(10)
+            
+            Button(action: onMoveDown) {
+                Image(systemName: "arrow.down")
+            }
+            .padding(.leading, 5)
         }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(10)
     }
 }

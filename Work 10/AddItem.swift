@@ -91,7 +91,8 @@ struct AddItemView: View {
             editingItem.itemDescription = itemDescription
             editingItem.links = links
         } else {
-            let newItem = Item(title: title, itemDescription: itemDescription, links: links, timestamp: Date())
+            let newRank = (try! modelContext.fetch(FetchDescriptor<Item>(sortBy: [SortDescriptor(\.rank, order: .reverse)])).first?.rank ?? 0) + 1
+            let newItem = Item(title: title, itemDescription: itemDescription, links: links, timestamp: Date(), rank: newRank)
             modelContext.insert(newItem)
         }
         
