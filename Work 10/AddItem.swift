@@ -45,7 +45,7 @@ struct AddItemView: View {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.customTeal)
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .cornerRadius(10)
                 }
                 
@@ -55,7 +55,7 @@ struct AddItemView: View {
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(Color.customPink)
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .cornerRadius(10)
                 
                 Button("Save") {
@@ -65,7 +65,7 @@ struct AddItemView: View {
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(Color.customGreen)
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .cornerRadius(10)
             }
             .padding()
