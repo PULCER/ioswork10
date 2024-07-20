@@ -46,23 +46,10 @@ struct AddItemView: View {
                     TextField("Title", text: $title)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    ZStack(alignment: .topLeading) {
-                        TextEditor(text: $itemDescription)
-                            .frame(minHeight: 100)
-                            .padding(4)
-                            .background(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.2)))
-                            .onChange(of: itemDescription) { newValue in
-                                isDescriptionEmpty = newValue.isEmpty
-                            }
-                        
-                        if isDescriptionEmpty {
-                            Text("Enter description here...")
-                                .foregroundColor(.gray.opacity(0.8))
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 12)
-                                .allowsHitTesting(false)
-                        }
-                    }
+                    TextEditor(text: $itemDescription)
+                        .frame(minHeight: 100)
+                        .padding(4)
+                        .background(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.2)))
                     
                     LinkFieldWithTitle(label: "Link 1", link: $link1, title: $linkTitle1)
                     LinkFieldWithTitle(label: "Link 2", link: $link2, title: $linkTitle2)
