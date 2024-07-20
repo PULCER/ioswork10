@@ -105,14 +105,14 @@ struct ItemPreview: View {
             }
             .frame(height: 60)
             
-            if let links = item.links, !links.isEmpty {
+            if let links = item.links, let linkTitles = item.linkTitles, !links.isEmpty {
                 HStack(spacing: 10) {
-                    ForEach(Array(zip(links.prefix(3), 1...3)), id: \.0) { link, index in
+                    ForEach(Array(zip(links.prefix(3), linkTitles.prefix(3))), id: \.0) { link, title in
                         Link(destination: link) {
-                            Text("Link \(index)")
+                            Text(title.isEmpty ? "Link \(links.firstIndex(of: link)! + 1)" : title)
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(linkColor(for: index))
+                                .background(linkColor(for: links.firstIndex(of: link)! + 1))
                                 .foregroundColor(.black)
                                 .cornerRadius(10)
                         }
