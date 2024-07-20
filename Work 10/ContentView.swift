@@ -80,28 +80,29 @@ struct ItemPreview: View {
     let onMoveDown: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(spacing: 10) {
             HStack {
                 Button(action: onMoveUp) {
                     Image(systemName: "arrow.up")
                 }
-                .padding(.trailing, 5)
+                .frame(width: 44)
                 
-                VStack(alignment: .leading) {
-                    Text(item.title ?? "Untitled")
-                        .font(.headline)
-                    Text(item.itemDescription ?? "No description")
-                        .font(.subheadline)
-                        .lineLimit(1)
-                }
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
+                
+                Text(item.title ?? "Untitled")
+                    .font(.headline)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                
+                Spacer()
                 
                 Button(action: onMoveDown) {
                     Image(systemName: "arrow.down")
                 }
-                .padding(.leading, 5)
+                .frame(width: 44)
             }
+            .frame(height: 60)
             
             if let links = item.links, !links.isEmpty {
                 HStack(spacing: 10) {
