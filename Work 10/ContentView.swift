@@ -92,6 +92,12 @@ struct ItemPreview: View {
                 Text(item.itemDescription ?? "No description")
                     .font(.subheadline)
                     .lineLimit(1)
+                
+                HStack {
+                    ForEach(Array(zip(item.links ?? [], 1...3)), id: \.0) { link, index in
+                        Link("\(index)", destination: link)
+                    }
+                }
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)

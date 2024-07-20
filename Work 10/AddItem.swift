@@ -7,7 +7,9 @@ struct AddItemView: View {
     
     @State private var title: String
     @State private var itemDescription: String
-    @State private var linkString: String
+    @State private var link1: String = ""
+    @State private var link2: String = ""
+    @State private var link3: String = ""
     @State private var showingDeleteConfirmation = false
     
     var editingItem: Item?
@@ -18,7 +20,12 @@ struct AddItemView: View {
         self.navigationViewModel = navigationViewModel
         _title = State(initialValue: editingItem?.title ?? "")
         _itemDescription = State(initialValue: editingItem?.itemDescription ?? "")
-        _linkString = State(initialValue: editingItem?.links?.compactMap { $0.absoluteString }.joined(separator: ", ") ?? "")
+        
+        if let links = editingItem?.links, !links.isEmpty {
+            _link1 = State(initialValue: links[0].absoluteString)
+            _link2 = State(initialValue: links.count > 1 ? links[1].absoluteString : "")
+            _link3 = State(initialValue: links.count > 2 ? links[2].absoluteString : "")
+        }
     }
     
     var body: some View {
@@ -29,8 +36,9 @@ struct AddItemView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     TextField("Description", text: $itemDescription)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                    TextField("Links (comma-separated)", text: $linkString)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    LinkField(label: "Link 1", link: $link1)
+                    LinkField(label: "Link 2", link: $link2)
+                    LinkField(label: "Link 3", link: $link3)
                 }
                 .padding()
             }
@@ -84,7 +92,9 @@ struct AddItemView: View {
     }
 
     private func saveItem() {
-        let links = linkString.split(separator: ",").compactMap { URL(string: String($0).trimmingCharacters(in: .whitespaces)) }
+        let links = [link1, link2, link3]
+            .filter { !$0.isEmpty }
+            .compactMap { URL(string: $0) }
         
         if let editingItem = editingItem {
             editingItem.title = title
@@ -103,6 +113,34 @@ struct AddItemView: View {
         if let itemToDelete = editingItem {
             modelContext.delete(itemToDelete)
             try? modelContext.save()
+        }
+    }
+}
+
+struct LinkField: View {
+    let label: String
+    @Binding var link: String
+    @State private var showingDeleteConfirmation = false
+    
+    var body: some View {
+        HStack {
+            TextField(label, text: $link)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            Button(action: {
+                showingDeleteConfirmation = true
+            }) {
+                Image(systemName: "minus.circle")
+                    .foregroundColor(.red)
+            }
+            .alert("Delete Link", isPresented: $showingDeleteConfirmation) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) {
+                    link = ""
+                }
+            } message: {
+                Text("Are you sure you want to delete this link?")
+            }
         }
     }
 }
