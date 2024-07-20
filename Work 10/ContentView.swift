@@ -18,7 +18,7 @@ struct ContentView: View {
     }
     
     private var mainView: some View {
-        ZStack {
+        VStack {
             ScrollView {
                 LazyVStack(spacing: 10) {
                     ForEach(items) { item in
@@ -35,23 +35,18 @@ struct ContentView: View {
                 .padding()
             }
             
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.title)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .clipShape(Circle())
-                    }
+            Button(action: {
+                navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
+            }) {
+                Text("ADD")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
                     .padding()
-                }
+                    .background(Color.blue)
+                    .cornerRadius(10)
             }
+            .padding()
         }
     }
     
