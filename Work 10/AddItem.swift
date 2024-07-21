@@ -8,6 +8,7 @@ struct AddItemView: View {
     @State private var title: String
     @State private var itemDescription: String
     @State private var links: [(String, String)] = []
+    @State private var tasks: [String] = []
     @State private var showingDeleteConfirmation = false
     
     var editingItem: Item?
@@ -21,6 +22,10 @@ struct AddItemView: View {
         
         if let existingLinks = editingItem?.links, let existingTitles = editingItem?.linkTitles {
             _links = State(initialValue: Array(zip(existingLinks.map { $0.absoluteString }, existingTitles)))
+        }
+        
+        if let existingTask = editingItem?.task {
+            _tasks = State(initialValue: [existingTask])
         }
     }
     
@@ -44,17 +49,35 @@ struct AddItemView: View {
                             onDelete: { deleteLink(at: index) }
                         )
                     }
+                    
+                    ForEach(tasks.indices, id: \.self) { index in
+                        TaskField(
+                            task: $tasks[index],
+                            onDelete: { deleteTask(at: index) }
+                        )
+                    }
                 }
                 .padding()
             }
          
-            Button(action: addNewLink) {
-                Text("Add Link")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.customBlue)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
+            HStack {
+                Button(action: addNewLink) {
+                    Text("Add Link")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.customBlue)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                }
+                
+                Button(action: addNewTask) {
+                    Text("Add Task")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.customYellow)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                }
             }
             .buttonStyle(ClickableButtonStyle())
             .padding(.horizontal)
@@ -123,6 +146,14 @@ struct AddItemView: View {
     private func deleteLink(at index: Int) {
         links.remove(at: index)
     }
+    
+    private func addNewTask() {
+        tasks.append("")
+    }
+    
+    private func deleteTask(at index: Int) {
+        tasks.remove(at: index)
+    }
 
     private func saveItem() {
         let savedLinks = links.compactMap { URL(string: $0.0) }
@@ -133,9 +164,10 @@ struct AddItemView: View {
             editingItem.itemDescription = itemDescription
             editingItem.links = savedLinks
             editingItem.linkTitles = savedLinkTitles
+            editingItem.task = tasks.first
         } else {
             let newRank = (try! modelContext.fetch(FetchDescriptor<Item>(sortBy: [SortDescriptor(\.rank, order: .reverse)])).first?.rank ?? 0) + 1
-            let newItem = Item(title: title, itemDescription: itemDescription, links: savedLinks, linkTitles: savedLinkTitles, timestamp: Date(), rank: newRank)
+            let newItem = Item(title: title, itemDescription: itemDescription, links: savedLinks, linkTitles: savedLinkTitles, timestamp: Date(), rank: newRank, task: tasks.first)
             modelContext.insert(newItem)
         }
         
@@ -180,6 +212,34 @@ struct LinkFieldWithTitle: View {
                 } message: {
                     Text("Are you sure you want to delete this link and its title?")
                 }
+            }
+        }
+    }
+}
+
+struct TaskField: View {
+    @Binding var task: String
+    let onDelete: () -> Void
+    @State private var showingDeleteConfirmation = false
+    
+    var body: some View {
+        HStack {
+            TextField("Task", text: $task)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            Button(action: {
+                showingDeleteConfirmation = true
+            }) {
+                Image(systemName: "minus.circle")
+                    .foregroundColor(.red)
+            }
+            .alert("Delete Task", isPresented: $showingDeleteConfirmation) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) {
+                    onDelete()
+                }
+            } message: {
+                Text("Are you sure you want to delete this task?")
             }
         }
     }
