@@ -7,12 +7,7 @@ struct AddItemView: View {
     
     @State private var title: String
     @State private var itemDescription: String
-    @State private var link1: String = ""
-    @State private var link2: String = ""
-    @State private var link3: String = ""
-    @State private var linkTitle1: String = ""
-    @State private var linkTitle2: String = ""
-    @State private var linkTitle3: String = ""
+    @State private var links: [(String, String)] = []
     @State private var showingDeleteConfirmation = false
     
     var editingItem: Item?
@@ -24,21 +19,11 @@ struct AddItemView: View {
         _title = State(initialValue: editingItem?.title ?? "")
         _itemDescription = State(initialValue: editingItem?.itemDescription ?? "")
         
-        if let links = editingItem?.links, !links.isEmpty {
-            _link1 = State(initialValue: links[0].absoluteString)
-            _link2 = State(initialValue: links.count > 1 ? links[1].absoluteString : "")
-            _link3 = State(initialValue: links.count > 2 ? links[2].absoluteString : "")
-        }
-        
-        if let linkTitles = editingItem?.linkTitles, !linkTitles.isEmpty {
-            _linkTitle1 = State(initialValue: linkTitles[0])
-            _linkTitle2 = State(initialValue: linkTitles.count > 1 ? linkTitles[1] : "")
-            _linkTitle3 = State(initialValue: linkTitles.count > 2 ? linkTitles[2] : "")
+        if let existingLinks = editingItem?.links, let existingTitles = editingItem?.linkTitles {
+            _links = State(initialValue: Array(zip(existingLinks.map { $0.absoluteString }, existingTitles)))
         }
     }
     
-    @State private var isDescriptionEmpty: Bool = true
-
     var body: some View {
         VStack {
             ScrollView {
@@ -51,12 +36,28 @@ struct AddItemView: View {
                         .padding(4)
                         .background(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.2)))
                     
-                    LinkFieldWithTitle(label: "Link 1", link: $link1, title: $linkTitle1)
-                    LinkFieldWithTitle(label: "Link 2", link: $link2, title: $linkTitle2)
-                    LinkFieldWithTitle(label: "Link 3", link: $link3, title: $linkTitle3)
+                    ForEach(links.indices, id: \.self) { index in
+                        LinkFieldWithTitle(
+                            label: "Link \(index + 1)",
+                            link: $links[index].0,
+                            title: $links[index].1,
+                            onDelete: { deleteLink(at: index) }
+                        )
+                    }
                 }
                 .padding()
             }
+         
+            Button(action: addNewLink) {
+                Text("Add Link")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.customBlue)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
+            }
+            .buttonStyle(ClickableButtonStyle())
+            .padding(.horizontal)
          
             Spacer()
          
@@ -115,22 +116,26 @@ struct AddItemView: View {
         }
     }
 
+    private func addNewLink() {
+        links.append(("", ""))
+    }
+
+    private func deleteLink(at index: Int) {
+        links.remove(at: index)
+    }
+
     private func saveItem() {
-        let links = [link1, link2, link3]
-            .filter { !$0.isEmpty }
-            .compactMap { URL(string: $0) }
-        
-        let linkTitles = [linkTitle1, linkTitle2, linkTitle3]
-            .filter { !$0.isEmpty }
+        let savedLinks = links.compactMap { URL(string: $0.0) }
+        let savedLinkTitles = links.map { $0.1 }
         
         if let editingItem = editingItem {
             editingItem.title = title
             editingItem.itemDescription = itemDescription
-            editingItem.links = links
-            editingItem.linkTitles = linkTitles
+            editingItem.links = savedLinks
+            editingItem.linkTitles = savedLinkTitles
         } else {
             let newRank = (try! modelContext.fetch(FetchDescriptor<Item>(sortBy: [SortDescriptor(\.rank, order: .reverse)])).first?.rank ?? 0) + 1
-            let newItem = Item(title: title, itemDescription: itemDescription, links: links, linkTitles: linkTitles, timestamp: Date(), rank: newRank)
+            let newItem = Item(title: title, itemDescription: itemDescription, links: savedLinks, linkTitles: savedLinkTitles, timestamp: Date(), rank: newRank)
             modelContext.insert(newItem)
         }
         
@@ -149,6 +154,7 @@ struct LinkFieldWithTitle: View {
     let label: String
     @Binding var link: String
     @Binding var title: String
+    let onDelete: () -> Void
     @State private var showingDeleteConfirmation = false
     
     var body: some View {
@@ -169,8 +175,7 @@ struct LinkFieldWithTitle: View {
                 .alert("Delete Link", isPresented: $showingDeleteConfirmation) {
                     Button("Cancel", role: .cancel) { }
                     Button("Delete", role: .destructive) {
-                        link = ""
-                        title = ""
+                        onDelete()
                     }
                 } message: {
                     Text("Are you sure you want to delete this link and its title?")
