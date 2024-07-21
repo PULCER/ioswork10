@@ -6,8 +6,12 @@ struct TasksView: View {
     @Query private var items: [Item]
     @ObservedObject var navigationViewModel: NavigationViewModel
     
-    var allTasks: [String] {
-        items.flatMap { $0.tasks ?? [] }
+    var allTasksWithItems: [(String, Item)] {
+        items.flatMap { item in
+            (item.tasks ?? []).map { task in
+                (task, item)
+            }
+        }
     }
     
     var body: some View {
@@ -17,12 +21,21 @@ struct TasksView: View {
                 .padding()
             
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 10) {
-                    ForEach(allTasks, id: \.self) { task in
-                        Text(task)
-                            .padding(.horizontal)
+                LazyVStack(spacing: 10) {
+                    ForEach(allTasksWithItems, id: \.0) { task, item in
+                        Button(action: {
+                            navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: item, navigationViewModel: navigationViewModel)))
+                        }) {
+                            Text(task)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding()
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
+                .padding()
             }
             
             Spacer()

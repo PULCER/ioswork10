@@ -37,27 +37,27 @@ struct ContentView: View {
             
             HStack {
                 Button(action: {
-                    navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
-                }) {
-                    Text("ADD")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.customBlue)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(ClickableButtonStyle())
-                
-                Button(action: {
                     navigationViewModel.navigate(to: AnyView(TasksView(navigationViewModel: navigationViewModel)))
                 }) {
-                    Text("TASKS")
+                    Text("Tasks")
                         .font(.headline)
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.customTeal)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(ClickableButtonStyle())
+                
+                Button(action: {
+                    navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
+                }) {
+                    Text("Add")
+                        .font(.headline)
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.customBlue)
                         .cornerRadius(10)
                 }
                 .buttonStyle(ClickableButtonStyle())
