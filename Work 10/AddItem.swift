@@ -72,7 +72,7 @@ struct AddItemView: View {
                     Text("Add Task")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.customTeal)
+                        .background(Color.customYellow)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                 }
