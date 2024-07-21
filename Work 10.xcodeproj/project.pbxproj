@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4318C6772C4D87E800417969 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4318C6762C4D87E800417969 /* TaskView.swift */; };
 		433D52762C4B2A3A00511DF7 /* AddItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433D52752C4B2A3A00511DF7 /* AddItem.swift */; };
 		433D52792C4B3F8800511DF7 /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = 433D52782C4B3F8800511DF7 /* Property List.plist */; };
 		4342ADEB2C4AD67E005AAAD7 /* Work_10App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342ADEA2C4AD67E005AAAD7 /* Work_10App.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4318C6762C4D87E800417969 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		433D52752C4B2A3A00511DF7 /* AddItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItem.swift; sourceTree = "<group>"; };
 		433D52772C4B3F6500511DF7 /* Work-10-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Work-10-Info.plist"; sourceTree = SOURCE_ROOT; };
 		433D52782C4B3F8800511DF7 /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				433D52772C4B3F6500511DF7 /* Work-10-Info.plist */,
 				4342ADEA2C4AD67E005AAAD7 /* Work_10App.swift */,
 				4342ADEC2C4AD67E005AAAD7 /* ContentView.swift */,
+				4318C6762C4D87E800417969 /* TaskView.swift */,
 				433D52752C4B2A3A00511DF7 /* AddItem.swift */,
 				43F6BB462C4B280400BFEFCD /* NavigationViewModel.swift */,
 				4342ADEE2C4AD67E005AAAD7 /* Item.swift */,
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43F6BB472C4B280400BFEFCD /* NavigationViewModel.swift in Sources */,
+				4318C6772C4D87E800417969 /* TaskView.swift in Sources */,
 				43F6BB492C4B28F600BFEFCD /* ColorsAndStyles.swift in Sources */,
 				433D52762C4B2A3A00511DF7 /* AddItem.swift in Sources */,
 				4342ADED2C4AD67E005AAAD7 /* ContentView.swift in Sources */,
