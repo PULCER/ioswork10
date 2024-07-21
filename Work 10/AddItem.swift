@@ -8,7 +8,9 @@ struct AddItemView: View {
     @State private var title: String
     @State private var itemDescription: String
     @State private var links: [(String, String)] = []
+    @State private var tasks: [String] = []
     @State private var showingDeleteConfirmation = false
+    @State private var deletingTaskIndex: Int?
     
     var editingItem: Item?
     
@@ -22,6 +24,8 @@ struct AddItemView: View {
         if let existingLinks = editingItem?.links, let existingTitles = editingItem?.linkTitles {
             _links = State(initialValue: Array(zip(existingLinks.map { $0.absoluteString }, existingTitles)))
         }
+        
+        _tasks = State(initialValue: editingItem?.tasks ?? [])
     }
     
     var body: some View {
@@ -44,19 +48,46 @@ struct AddItemView: View {
                             onDelete: { deleteLink(at: index) }
                         )
                     }
+                    
+                    ForEach(tasks.indices, id: \.self) { index in
+                        HStack {
+                            TextField("Task \(index + 1)", text: $tasks[index])
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            
+                            Button(action: {
+                                deletingTaskIndex = index
+                                showingDeleteConfirmation = true
+                            }) {
+                                Image(systemName: "minus.circle")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
                 }
                 .padding()
             }
          
-            Button(action: addNewLink) {
-                Text("Add Link")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.customBlue)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
+            HStack(spacing: 20) {
+                Button(action: addNewTask) {
+                    Text("Add Task")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.customTeal)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(ClickableButtonStyle())
+
+                Button(action: addNewLink) {
+                    Text("Add Link")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.customBlue)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(ClickableButtonStyle())
             }
-            .buttonStyle(ClickableButtonStyle())
             .padding(.horizontal)
          
             Spacer()
@@ -108,11 +139,16 @@ struct AddItemView: View {
         .alert("Delete Item", isPresented: $showingDeleteConfirmation) {
             Button("Cancel", role: .cancel) { }
             Button("Delete", role: .destructive) {
-                deleteItem()
-                navigationViewModel.goToRoot()
+                if let index = deletingTaskIndex {
+                    deleteTask(at: index)
+                    deletingTaskIndex = nil
+                } else {
+                    deleteItem()
+                    navigationViewModel.goToRoot()
+                }
             }
         } message: {
-            Text("Are you sure you want to delete this item?")
+            Text(deletingTaskIndex != nil ? "Are you sure you want to delete this task?" : "Are you sure you want to delete this item?")
         }
     }
 
@@ -124,6 +160,14 @@ struct AddItemView: View {
         links.remove(at: index)
     }
 
+    private func addNewTask() {
+        tasks.append("")
+    }
+
+    private func deleteTask(at index: Int) {
+        tasks.remove(at: index)
+    }
+
     private func saveItem() {
         let savedLinks = links.compactMap { URL(string: $0.0) }
         let savedLinkTitles = links.map { $0.1 }
@@ -133,9 +177,10 @@ struct AddItemView: View {
             editingItem.itemDescription = itemDescription
             editingItem.links = savedLinks
             editingItem.linkTitles = savedLinkTitles
+            editingItem.tasks = tasks
         } else {
             let newRank = (try! modelContext.fetch(FetchDescriptor<Item>(sortBy: [SortDescriptor(\.rank, order: .reverse)])).first?.rank ?? 0) + 1
-            let newItem = Item(title: title, itemDescription: itemDescription, links: savedLinks, linkTitles: savedLinkTitles, timestamp: Date(), rank: newRank)
+            let newItem = Item(title: title, itemDescription: itemDescription, links: savedLinks, linkTitles: savedLinkTitles, timestamp: Date(), rank: newRank, tasks: tasks)
             modelContext.insert(newItem)
         }
         
