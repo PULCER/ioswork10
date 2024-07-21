@@ -68,21 +68,21 @@ struct AddItemView: View {
             }
          
             HStack(spacing: 20) {
-                Button(action: addNewTask) {
-                    Text("Add Task")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.customYellow)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(ClickableButtonStyle())
-
                 Button(action: addNewLink) {
                     Text("Add Link")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.customBlue)
+                        .foregroundColor(.black)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(ClickableButtonStyle())
+                
+                Button(action: addNewTask) {
+                    Text("Add Task")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.customYellow)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                 }
