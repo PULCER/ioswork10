@@ -14,6 +14,8 @@
 		4342ADEF2C4AD67E005AAAD7 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4342ADEE2C4AD67E005AAAD7 /* Item.swift */; };
 		4342ADF12C4AD67F005AAAD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4342ADF02C4AD67F005AAAD7 /* Assets.xcassets */; };
 		4342ADF52C4AD67F005AAAD7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4342ADF42C4AD67F005AAAD7 /* Preview Assets.xcassets */; };
+		434BFC5F2C5051AB00041415 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434BFC5E2C5051AB00041415 /* NotesView.swift */; };
+		434BFC612C50520C00041415 /* AddNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434BFC602C50520C00041415 /* AddNotesView.swift */; };
 		43812C562C4DA6E800A97C65 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43812C552C4DA6E800A97C65 /* TaskView.swift */; };
 		43F6BB472C4B280400BFEFCD /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6BB462C4B280400BFEFCD /* NavigationViewModel.swift */; };
 		43F6BB492C4B28F600BFEFCD /* ColorsAndStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6BB482C4B28F600BFEFCD /* ColorsAndStyles.swift */; };
@@ -30,6 +32,8 @@
 		4342ADF02C4AD67F005AAAD7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4342ADF22C4AD67F005AAAD7 /* Work_10.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Work_10.entitlements; sourceTree = "<group>"; };
 		4342ADF42C4AD67F005AAAD7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		434BFC5E2C5051AB00041415 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		434BFC602C50520C00041415 /* AddNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesView.swift; sourceTree = "<group>"; };
 		43812C552C4DA6E800A97C65 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		43F6BB462C4B280400BFEFCD /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		43F6BB482C4B28F600BFEFCD /* ColorsAndStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsAndStyles.swift; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 				4342ADEA2C4AD67E005AAAD7 /* Work_10App.swift */,
 				4342ADEC2C4AD67E005AAAD7 /* ContentView.swift */,
 				43812C552C4DA6E800A97C65 /* TaskView.swift */,
+				434BFC5E2C5051AB00041415 /* NotesView.swift */,
+				434BFC602C50520C00041415 /* AddNotesView.swift */,
 				433D52752C4B2A3A00511DF7 /* AddItem.swift */,
 				43F6BB462C4B280400BFEFCD /* NavigationViewModel.swift */,
 				4342ADEE2C4AD67E005AAAD7 /* Item.swift */,
@@ -166,6 +172,8 @@
 				433D52762C4B2A3A00511DF7 /* AddItem.swift in Sources */,
 				4342ADED2C4AD67E005AAAD7 /* ContentView.swift in Sources */,
 				4342ADEF2C4AD67E005AAAD7 /* Item.swift in Sources */,
+				434BFC5F2C5051AB00041415 /* NotesView.swift in Sources */,
+				434BFC612C50520C00041415 /* AddNotesView.swift in Sources */,
 				4342ADEB2C4AD67E005AAAD7 /* Work_10App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,7 +302,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Work 10/Work_10.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Work 10/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -317,7 +325,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.06;
+				MARKETING_VERSION = 1.08;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pulcer.Work-10";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -335,7 +343,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Work 10/Work_10.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Work 10/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -358,7 +366,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.06;
+				MARKETING_VERSION = 1.08;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pulcer.Work-10";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

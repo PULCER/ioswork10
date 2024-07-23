@@ -36,34 +36,47 @@ struct ContentView: View {
             }
             
             HStack {
-                Button(action: {
-                    navigationViewModel.navigate(to: AnyView(TasksView(navigationViewModel: navigationViewModel)))
-                }) {
-                    Text("Tasks")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.customTeal)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(ClickableButtonStyle())
-                
-                Button(action: {
-                    navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
-                }) {
-                    Text("Add")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.customBlue)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(ClickableButtonStyle())
-            }
-            .padding()
-        }
+                           Button(action: {
+                               navigationViewModel.navigate(to: AnyView(NotesView(navigationViewModel: navigationViewModel)))
+                           }) {
+                               Text("Notes")
+                                   .font(.headline)
+                                   .foregroundColor(.black)
+                                   .frame(maxWidth: .infinity)
+                                   .padding()
+                                   .background(Color.customYellow)
+                                   .cornerRadius(10)
+                           }
+                           .buttonStyle(ClickableButtonStyle())
+                           
+                           Button(action: {
+                               navigationViewModel.navigate(to: AnyView(TasksView(navigationViewModel: navigationViewModel)))
+                           }) {
+                               Text("Tasks")
+                                   .font(.headline)
+                                   .foregroundColor(.black)
+                                   .frame(maxWidth: .infinity)
+                                   .padding()
+                                   .background(Color.customTeal)
+                                   .cornerRadius(10)
+                           }
+                           .buttonStyle(ClickableButtonStyle())
+                           
+                           Button(action: {
+                               navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
+                           }) {
+                               Text("Add")
+                                   .font(.headline)
+                                   .foregroundColor(.black)
+                                   .frame(maxWidth: .infinity)
+                                   .padding()
+                                   .background(Color.customBlue)
+                                   .cornerRadius(10)
+                           }
+                           .buttonStyle(ClickableButtonStyle())
+                       }
+                       .padding()
+                   }
     }
     
     private func moveItem(_ item: Item, direction: MoveDirection) {
