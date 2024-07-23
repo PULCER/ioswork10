@@ -294,7 +294,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Work 10/Work_10.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"Work 10/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -317,7 +317,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 1.06;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pulcer.Work-10";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -335,7 +335,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Work 10/Work_10.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "\"Work 10/Preview Content\"";
 				DEVELOPMENT_TEAM = 5BB8VQ988Q;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -358,7 +358,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.05;
+				MARKETING_VERSION = 1.06;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pulcer.Work-10";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

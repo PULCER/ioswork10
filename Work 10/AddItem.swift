@@ -156,17 +156,19 @@ struct AddItemView: View {
         links.append(("", ""))
     }
 
-    private func deleteLink(at index: Int) {
-        links.remove(at: index)
-    }
-
     private func addNewTask() {
         tasks.append("")
     }
 
-    private func deleteTask(at index: Int) {
-        tasks.remove(at: index)
-    }
+    private func deleteLink(at index: Int) {
+           links.remove(at: index)
+           saveItem()
+       }
+
+       private func deleteTask(at index: Int) {
+           tasks.remove(at: index)
+           saveItem()
+       }
 
     private func saveItem() {
         let savedLinks = links.compactMap { URL(string: $0.0) }
