@@ -152,6 +152,11 @@ struct ItemPreview: View {
         .padding()
         .background(Color.gray.opacity(0.1))
         .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.customBlue, lineWidth: 4)
+                .shadow(color: Color.customBlue.opacity(0.5), radius: 4, x: 0, y: 0)
+        )
     }
     
     private func linkColor(for index: Int) -> Color {
