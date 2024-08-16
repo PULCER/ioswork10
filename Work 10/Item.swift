@@ -40,24 +40,3 @@ final class Notes {
         self.rank = rank
     }
 }
-
-// New inconsequential model
-@Model
-final class DummyModel {
-    var text: String?
-    
-    init(text: String = "") {
-        self.text = text
-    }
-}
-
-// New inconsequential model
-@Model
-final class DummyModel2 {
-    var text: String?
-    
-    init(text: String = "") {
-        self.text = text
-    }
-}
-
