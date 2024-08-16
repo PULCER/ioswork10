@@ -13,7 +13,7 @@ struct NotesView: View {
                 .padding()
             
             ScrollView {
-                LazyVStack(spacing: 10) {
+                LazyVStack(spacing: 25) {
                     ForEach(notes) { note in
                         NotePreview(note: note, onMoveUp: {
                             moveNote(note, direction: .up)
@@ -84,25 +84,48 @@ struct NotePreview: View {
     let onMoveUp: () -> Void
     let onMoveDown: () -> Void
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         HStack {
-            Button(action: onMoveUp) {
-                Image(systemName: "arrow.up")
-            }
-            .frame(width: 44)
+            ArrowButton(direction: .up, action: onMoveUp)
+            
+            Spacer()
             
             Text(note.title ?? "Untitled Note")
                 .font(.headline)
                 .lineLimit(1)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .center)
             
-            Button(action: onMoveDown) {
-                Image(systemName: "arrow.down")
-            }
-            .frame(width: 44)
+            Spacer()
+            
+            ArrowButton(direction: .down, action: onMoveDown)
         }
-        .padding()
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(10)
+        .frame(height: 60)
+        .padding(.horizontal)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(colorScheme == .dark ? Color.black : Color.white)
+                    .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+                
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                colorScheme == .dark ? Color.gray.opacity(0.3) : Color.white,
+                                colorScheme == .dark ? Color.black.opacity(0.3) : Color.gray.opacity(0.1)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+            }
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.customBlue.opacity(0.5), lineWidth: 1)
+        )
+        .shadow(color: Color.customBlue.opacity(0.3), radius: 5, x: 0, y: 2)
     }
 }
