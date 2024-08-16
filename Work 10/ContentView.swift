@@ -103,10 +103,14 @@ enum MoveDirection {
     case up, down
 }
 
+import SwiftUI
+
 struct ItemPreview: View {
     let item: Item
     let onMoveUp: () -> Void
     let onMoveDown: () -> Void
+    
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(spacing: 10) {
@@ -144,13 +148,30 @@ struct ItemPreview: View {
             }
         }
         .padding()
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(10)
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(colorScheme == .dark ? Color.black : Color.white)
+                    .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+                
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                colorScheme == .dark ? Color.gray.opacity(0.3) : Color.white,
+                                colorScheme == .dark ? Color.black.opacity(0.3) : Color.gray.opacity(0.1)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+            }
+        )
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.customBlue, lineWidth: 2)
-                .shadow(color: Color.customBlue.opacity(0.5), radius: 4, x: 0, y: 0)
+                .stroke(Color.customBlue.opacity(0.5), lineWidth: 1)
         )
+        .shadow(color: Color.customBlue.opacity(0.3), radius: 5, x: 0, y: 2)
     }
     
     private func linkColor(for index: Int) -> Color {
