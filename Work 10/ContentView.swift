@@ -20,7 +20,7 @@ struct ContentView: View {
     private var mainView: some View {
         VStack {
             ScrollView {
-                LazyVStack(spacing: 10) {
+                LazyVStack(spacing: 25) {
                     ForEach(items) { item in
                         ItemPreview(item: item, onMoveUp: {
                             moveItem(item, direction: .up)
