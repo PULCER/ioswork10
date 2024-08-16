@@ -12,6 +12,8 @@ struct AddItemView: View {
     @State private var showingDeleteConfirmation = false
     @State private var deletingTaskIndex: Int?
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var editingItem: Item?
     
     init(modelContext: ModelContext, editingItem: Item? = nil, navigationViewModel: NavigationViewModel) {
@@ -32,13 +34,9 @@ struct AddItemView: View {
         VStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    TextField("Title", text: $title)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    styledTextField(title: "Title", text: $title)
                     
-                    TextEditor(text: $itemDescription)
-                        .frame(minHeight: 100)
-                        .padding(4)
-                        .background(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.2)))
+                    styledTextEditor(text: $itemDescription)
                     
                     ForEach(links.indices, id: \.self) { index in
                         LinkFieldWithTitle(
@@ -51,8 +49,7 @@ struct AddItemView: View {
                     
                     ForEach(tasks.indices, id: \.self) { index in
                         HStack {
-                            TextField("Task \(index + 1)", text: $tasks[index])
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            styledTextField(title: "Task \(index + 1)", text: $tasks[index])
                             
                             Button(action: {
                                 deletingTaskIndex = index
@@ -68,25 +65,8 @@ struct AddItemView: View {
             }
          
             HStack(spacing: 20) {
-                Button(action: addNewLink) {
-                    Text("Add Link")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.customBlue)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(ClickableButtonStyle())
-                
-                Button(action: addNewTask) {
-                    Text("Add Task")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.customYellow)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(ClickableButtonStyle())
+                styledButton(title: "Add Link", color: .customBlue, action: addNewLink)
+                styledButton(title: "Add Task", color: .customYellow, action: addNewTask)
             }
             .padding(.horizontal)
          
@@ -94,43 +74,19 @@ struct AddItemView: View {
          
             HStack(spacing: 20) {
                 if editingItem != nil {
-                    Button(action: {
+                    styledButton(title: "Delete", color: .customTeal) {
                         showingDeleteConfirmation = true
-                    }) {
-                        Text("Delete")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.customTeal)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
                     }
-                    .buttonStyle(ClickableButtonStyle())
                 }
                 
-                Button(action: {
+                styledButton(title: "Cancel", color: .customPink) {
                     navigationViewModel.goToRoot()
-                }) {
-                    Text("Cancel")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.customPink)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
                 }
-                .buttonStyle(ClickableButtonStyle())
                 
-                Button(action: {
+                styledButton(title: "Save", color: .customGreen) {
                     saveItem()
                     navigationViewModel.goToRoot()
-                }) {
-                    Text("Save")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.customGreen)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
                 }
-                .buttonStyle(ClickableButtonStyle())
             }
             .padding()
         }
@@ -152,6 +108,54 @@ struct AddItemView: View {
         }
     }
 
+    private func styledTextField(title: String, text: Binding<String>) -> some View {
+        TextField(title, text: text)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(colorScheme == .dark ? Color.black : Color.white)
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.customBlue.opacity(0.5), lineWidth: 1)
+            )
+    }
+
+    private func styledTextEditor(text: Binding<String>) -> some View {
+        TextEditor(text: text)
+            .frame(minHeight: 100)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(colorScheme == .dark ? Color.black : Color.white)
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.customBlue.opacity(0.5), lineWidth: 1)
+            )
+    }
+
+    private func styledButton(title: String, color: Color, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(color)
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                    }
+                )
+                .foregroundColor(.black)
+        }
+        .buttonStyle(ClickableButtonStyle())
+    }
+
     private func addNewLink() {
         links.append(("", ""))
     }
@@ -161,14 +165,14 @@ struct AddItemView: View {
     }
 
     private func deleteLink(at index: Int) {
-           links.remove(at: index)
-           saveItem()
-       }
+        links.remove(at: index)
+        saveItem()
+    }
 
-       private func deleteTask(at index: Int) {
-           tasks.remove(at: index)
-           saveItem()
-       }
+    private func deleteTask(at index: Int) {
+        tasks.remove(at: index)
+        saveItem()
+    }
 
     private func saveItem() {
         let savedLinks = links.compactMap { URL(string: $0.0) }
@@ -203,21 +207,46 @@ struct LinkFieldWithTitle: View {
     @Binding var title: String
     let onDelete: () -> Void
     @State private var showingDeleteConfirmation = false
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(spacing: 10) {
             TextField("\(label) Title", text: $title)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(colorScheme == .dark ? Color.black : Color.white)
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.customBlue.opacity(0.5), lineWidth: 1)
+                )
             
             HStack {
                 TextField(label, text: $link)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(colorScheme == .dark ? Color.black : Color.white)
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.customBlue.opacity(0.5), lineWidth: 1)
+                    )
                 
                 Button(action: {
                     showingDeleteConfirmation = true
                 }) {
                     Image(systemName: "minus.circle")
                         .foregroundColor(.red)
+                        .padding(8)
+                        .background(
+                            Circle()
+                                .fill(colorScheme == .dark ? Color.black : Color.white)
+                                .shadow(color: Color.black.opacity(0.2), radius: 3, x: 0, y: 1)
+                        )
                 }
                 .alert("Delete Link", isPresented: $showingDeleteConfirmation) {
                     Button("Cancel", role: .cancel) { }

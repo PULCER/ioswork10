@@ -5,6 +5,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \Item.rank) private var items: [Item]
     @StateObject private var navigationViewModel = NavigationViewModel()
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
@@ -36,47 +37,40 @@ struct ContentView: View {
             }
             
             HStack {
-                           Button(action: {
-                               navigationViewModel.navigate(to: AnyView(NotesView(navigationViewModel: navigationViewModel)))
-                           }) {
-                               Text("Notes")
-                                   .font(.headline)
-                                   .foregroundColor(.black)
-                                   .frame(maxWidth: .infinity)
-                                   .padding()
-                                   .background(Color.customYellow)
-                                   .cornerRadius(10)
-                           }
-                           .buttonStyle(ClickableButtonStyle())
-                
-                Button(action: {
-                    navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
-                }) {
-                    Text("Add")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.customBlue)
-                        .cornerRadius(10)
+                styledButton(title: "Notes", color: .customYellow) {
+                    navigationViewModel.navigate(to: AnyView(NotesView(navigationViewModel: navigationViewModel)))
                 }
-                .buttonStyle(ClickableButtonStyle())
                 
-                           Button(action: {
-                               navigationViewModel.navigate(to: AnyView(TasksView(navigationViewModel: navigationViewModel)))
-                           }) {
-                               Text("Tasks")
-                                   .font(.headline)
-                                   .foregroundColor(.black)
-                                   .frame(maxWidth: .infinity)
-                                   .padding()
-                                   .background(Color.customTeal)
-                                   .cornerRadius(10)
-                           }
-                           .buttonStyle(ClickableButtonStyle())
-                       }
-                       .padding()
-                   }
+                styledButton(title: "Add", color: .customBlue) {
+                    navigationViewModel.navigate(to: AnyView(AddItemView(modelContext: modelContext, editingItem: nil, navigationViewModel: navigationViewModel)))
+                }
+                
+                styledButton(title: "Tasks", color: .customTeal) {
+                    navigationViewModel.navigate(to: AnyView(TasksView(navigationViewModel: navigationViewModel)))
+                }
+            }
+            .padding()
+        }
+    }
+    
+    private func styledButton(title: String, color: Color, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(color)
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                    }
+                )
+        }
+        .buttonStyle(ClickableButtonStyle())
     }
     
     private func moveItem(_ item: Item, direction: MoveDirection) {
@@ -98,4 +92,3 @@ struct ContentView: View {
         try? modelContext.save()
     }
 }
-
