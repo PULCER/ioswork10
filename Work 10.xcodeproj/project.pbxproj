@@ -19,6 +19,7 @@
 		43812C562C4DA6E800A97C65 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43812C552C4DA6E800A97C65 /* TaskView.swift */; };
 		43F6BB472C4B280400BFEFCD /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6BB462C4B280400BFEFCD /* NavigationViewModel.swift */; };
 		43F6BB492C4B28F600BFEFCD /* ColorsAndStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6BB482C4B28F600BFEFCD /* ColorsAndStyles.swift */; };
+		43FD19F62C6FACE700C9CDBA /* ItemPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FD19F52C6FACE700C9CDBA /* ItemPreviewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		43812C552C4DA6E800A97C65 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		43F6BB462C4B280400BFEFCD /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
 		43F6BB482C4B28F600BFEFCD /* ColorsAndStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsAndStyles.swift; sourceTree = "<group>"; };
+		43FD19F52C6FACE700C9CDBA /* ItemPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPreviewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				433D52772C4B3F6500511DF7 /* Work-10-Info.plist */,
 				4342ADEA2C4AD67E005AAAD7 /* Work_10App.swift */,
 				4342ADEC2C4AD67E005AAAD7 /* ContentView.swift */,
+				43FD19F52C6FACE700C9CDBA /* ItemPreviewView.swift */,
 				43812C552C4DA6E800A97C65 /* TaskView.swift */,
 				434BFC5E2C5051AB00041415 /* NotesView.swift */,
 				434BFC602C50520C00041415 /* AddNotesView.swift */,
@@ -170,6 +173,7 @@
 				43812C562C4DA6E800A97C65 /* TaskView.swift in Sources */,
 				43F6BB492C4B28F600BFEFCD /* ColorsAndStyles.swift in Sources */,
 				433D52762C4B2A3A00511DF7 /* AddItem.swift in Sources */,
+				43FD19F62C6FACE700C9CDBA /* ItemPreviewView.swift in Sources */,
 				4342ADED2C4AD67E005AAAD7 /* ContentView.swift in Sources */,
 				4342ADEF2C4AD67E005AAAD7 /* Item.swift in Sources */,
 				434BFC5F2C5051AB00041415 /* NotesView.swift in Sources */,

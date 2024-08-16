@@ -40,3 +40,7 @@ final class Notes {
         self.rank = rank
     }
 }
+
+public enum MoveDirection {
+    case up, down
+}
