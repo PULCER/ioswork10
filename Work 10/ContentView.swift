@@ -111,10 +111,7 @@ struct ItemPreview: View {
     var body: some View {
         VStack(spacing: 10) {
             HStack {
-                Button(action: onMoveUp) {
-                    Image(systemName: "arrow.up")
-                }
-                .frame(width: 44)
+                ArrowButton(direction: .up, action: onMoveUp)
                 
                 Spacer()
                 
@@ -126,10 +123,7 @@ struct ItemPreview: View {
                 
                 Spacer()
                 
-                Button(action: onMoveDown) {
-                    Image(systemName: "arrow.down")
-                }
-                .frame(width: 44)
+                ArrowButton(direction: .down, action: onMoveDown)
             }
             .frame(height: 60)
             
@@ -154,7 +148,7 @@ struct ItemPreview: View {
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.customBlue, lineWidth: 4)
+                .stroke(Color.customBlue, lineWidth: 2)
                 .shadow(color: Color.customBlue.opacity(0.5), radius: 4, x: 0, y: 0)
         )
     }
@@ -166,5 +160,25 @@ struct ItemPreview: View {
         case 3: return .customYellow
         default: return .customGreen
         }
+    }
+}
+
+struct ArrowButton: View {
+    enum Direction {
+        case up, down
+    }
+    
+    let direction: Direction
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: direction == .up ? "chevron.up" : "chevron.down")
+                .foregroundColor(.white)
+                .frame(width: 44, height: 44)
+                .background(Color.customBlue)
+                .cornerRadius(10)
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
